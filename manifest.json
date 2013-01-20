@@ -10,9 +10,10 @@
     "48": "img/icon-48.png",
     "128": "img/icon-128.png"
   },
+  "options_page": "options.html",
 
   "background" : {
-    "scripts": ["setting_util.js","browser_icon_script.js"]
+    "scripts": ["setting_util.js","browser_icon_script.js","bootloader_backgound.js"]
   },
   "browser_action":
   {
@@ -21,12 +22,10 @@
   },
   "content_scripts": [
     {
-      "matches": [
-                "https://www.google.co.jp/search?*"
-            ],
-            "js": ["jquery-1.9.0.min.js","content_script.js"],
-            "run_at": "document_end"
-      }
+      "matches": ["http://www.exploader.net/*"],
+      "js": ["jquery/js/jquery-1.9.0.min.js","content_script.js"],
+      "run_at": "document_end"
+    }
   ],
 
   "permissions": [
