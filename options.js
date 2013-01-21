@@ -18,4 +18,12 @@ function settingBootloaderEnable(value) {
 		return localStorage["setting_bootloader_enable"];
 };
 
+function isSettingBootloaderEnable() {
+	if (settingBootloaderEnable() == "enable") {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 initSetting();

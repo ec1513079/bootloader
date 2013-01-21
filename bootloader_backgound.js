@@ -40,6 +40,7 @@ function unlockPage(unlock_url, base_url, sender, sendResponse) {
     showRedPageIcon(sender.tab.id);
 };
 
+
 /************************************************
  * Listener
  ************************************************/
@@ -47,6 +48,7 @@ function unlockPage(unlock_url, base_url, sender, sendResponse) {
 function onMessageListener(message, sender, sendResponse) {
 
 	if (settingBootloaderEnable() != "enable") {
+		showGrayPageIcon(sender.tab.id);
 		sendResponse("bootloader disable");
 		return ;
 	}
