@@ -24,11 +24,7 @@ $(function() {
 	var acces = "http://dev.screw-axis.com/doc/chrome_extensions/tutorials/getting_started/";
 	var loc   = "http://www.chromium.org/getting-involved/dev-channel#TOC-Mac";
 	if(document.location.href == loc) { requestRapPass("hogehoge"); }
-
-	if(acces.innerText == "URLロック元に戻る") {
-		requestRapPass("hogehoge");
-	} else {
-		requestUnlockPage(acces, loc);
-	}
+	if(acces.innerText == "URLロック元に戻る") { requestRapPass("hogehoge");
+	} else { requestUnlockPage(acces, loc); }
 	//DEBUG<-
 });
