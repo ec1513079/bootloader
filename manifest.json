@@ -22,7 +22,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["http://www.exploader.net/*", "http://dev.screw-axis.com/doc/chrome_extensions/tutorials/debugging/"],
+      "matches": ["http://www.exploader.net/*", "http://dev.screw-axis.com/doc/chrome_extensions/tutorials/debugging/", "http://www.chromium.org/getting-involved/dev-channel"],
       "js": ["jquery/js/jquery-1.9.0.min.js","content_script.js"],
       "run_at": "document_end"
     }

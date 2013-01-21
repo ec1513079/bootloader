@@ -7,13 +7,15 @@ function unlockPage(unlock_url, base_url, sender, sendResponse) {
 
     	  if (xhr_.readyState == 4) {
 
-    	    var resp_ = xhr_.responseText;
-    	    //var regexe_ = new RegExp(base_url+"?[a-bA-B0-9=]*");
+    	    //var resp_ = xhr_.responseText;
+    	    //var regexe_ = new RegExp(base_url+"?[\\w=-]*");
+    	    //var exec_ = (resp_.match(regexe_) || [])[0] || null;
+
+    	    //DEBUG->
+    		var resp_ = xhr_.responseText;
     	    var regexe_ = new RegExp(base_url+"#[\\w=-]*");
     	    var exec_ = (resp_.match(regexe_) || [])[0] || null;
-
-    	    //(/ab(c+)/.exec('abccc') || [])[1] || null
-    		//http://dev.screw-axis.com/doc/chrome_extensions/tutorials/getting_started/
+    	    //DEBUG<-
 
     	    if(exec_) {
     	    	chrome.tabs.update(sender.tab.id, { url:exec_ });
@@ -54,5 +56,4 @@ function onMessageListener(message, sender, sendResponse) {
 
 	sendResponse("uncatch action onMessageListener : " + message.action);
 };
-
 chrome.extension.onMessage.addListener(onMessageListener);
