@@ -6,6 +6,11 @@ function initSetting() {
 	}
 };
 
+
+/************************************************
+ * Bootloader Enable/Disable
+ ************************************************/
+
 function settingBootloaderEnable(value) {
 
 	if(!localStorage["setting_bootloader_enable"]) {
@@ -25,5 +30,10 @@ function isSettingBootloaderEnable() {
 		return false;
 	}
 }
+
+
+/************************************************
+ * Kick Start
+ ************************************************/
 
 initSetting();

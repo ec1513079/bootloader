@@ -31,13 +31,13 @@ function showGrayPageIcon(tab_id) {
  * Listener
  ************************************************/
 
-function pageActionOnClickedListener(tab) {
-	if (isSettingBootloaderEnable()) {
-		settingBootloaderEnable("disable");
-		showGrayPageIcon(tab.id);
-	} else {
-		settingBootloaderEnable("enable");
-		showRedPageIcon(tab.id);
-	}
-}
-chrome.pageAction.onClicked.addListener(pageActionOnClickedListener);
+//function pageActionOnClickedListener(tab) {
+//	if (isSettingBootloaderEnable()) {
+//		settingBootloaderEnable("disable");
+//		showGrayPageIcon(tab.id);
+//	} else {
+//		settingBootloaderEnable("enable");
+//		showRedPageIcon(tab.id);
+//	}
+//}
+//chrome.pageAction.onClicked.addListener(pageActionOnClickedListener);
