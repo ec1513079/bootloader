@@ -1,8 +1,14 @@
 
-function requestRapPass(pass)
-{
-	console.log("rap pass : " + pass);
-	document.getElementsByName('exp_password')[0].setAttribute("value", pass);
+function requestRapPass(base_url) {
+	console.log("base url for rap : " + base_url);
+	chrome.extension.sendMessage(null, { action:"request_fetch_rap_pass", base_url:base_url }, function(response) {
+		console.log("fetched rap pass : " + response);
+		document.getElementsByName('exp_password')[0].setAttribute("value", response);
+
+		//DEBUG->
+		document.getElementsByName('q')[0].setAttribute("value", response);
+		//DEBUG<-
+	});
 };
 
 function requestUnlockPage(unlock_url, base_url) {
@@ -13,18 +19,19 @@ function requestUnlockPage(unlock_url, base_url) {
 };
 
 $(function() {
-	//acces = document.getElementById('acces').getElementsByTagName("a")[0];
+	//var acces_ = document.getElementById('acces').getElementsByTagName("a")[0];
+	//var location_ = document.location.href;
 	//if(acces.innerText == "URLロック元に戻る") {
-	//	requestRapPass("hogehoge");
+	//	requestRapPass(location_);
 	//} else {
-	//	requestUnlockPage(acces.innerText, document.location.href);
+	//	requestUnlockPage(acces_.innerText, location_);
 	//}
 
 	//DEBUG->
 	var acces = "http://dev.screw-axis.com/doc/chrome_extensions/tutorials/getting_started/";
 	var loc   = "http://www.chromium.org/getting-involved/dev-channel#TOC-Mac";
-	if(document.location.href == loc) { requestRapPass("hogehoge"); }
-	if(acces.innerText == "URLロック元に戻る") { requestRapPass("hogehoge");
+	if(document.location.href == loc) { requestRapPass(loc); }
+	if(acces.innerText == "URLロック元に戻る") { requestRapPass(loc);
 	} else { requestUnlockPage(acces, loc); }
 	//DEBUG<-
 });
