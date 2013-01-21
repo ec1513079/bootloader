@@ -5,18 +5,21 @@ function requestRapPass(pass)
 	document.getElementsByName('exp_password')[0].setAttribute("value", pass);
 };
 
-function requestUnlockPage(url) {
-	console.log("unlock url : " + url);
-	chrome.extension.sendRequest({ action : "request_unlock_page", url : url }, function(response) {
+function requestUnlockPage(unlock_url, base_url) {
+	console.log("unlock url : " + unlock_url + ", base url : " + base_url);
+	chrome.extension.sendMessage(null, { action:"request_unlock_page", unlock_url:unlock_url, base_url:base_url }, function(response) {
 		console.log("unlock response : " + response);
 	});
-}
+};
 
 $(function() {
-	acces = document.getElementById('acces').getElementsByTagName("a")[0];
+	//acces = document.getElementById('acces').getElementsByTagName("a")[0];
+	var acces = "http://dev.screw-axis.com/doc/chrome_extensions/tutorials/getting_started/";
+	var loc   = "http://www.chromium.org/getting-involved/dev-channel";
 	if(acces.innerText == "URLロック元に戻る") {
-		rap_pass("hogehoge");
+		requestRapPass("hogehoge");
 	} else {
-		requestUnlockPage(acces.innerText);
+		//requestUnlockPage(acces.innerText, document.location.href);
+		requestUnlockPage(acces, loc);
 	}
 });
