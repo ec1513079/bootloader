@@ -3,13 +3,20 @@
   <head>
     <title>RapPass</title>
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap/css/bootstrap-switch.css" rel="stylesheet">
     <script src="jquery/js/jquery-1.9.0.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="bootstrap/js/bootstrap-switch.js"></script>
     <script src="options.js"></script>
+    <style>
+    </style>
   </head>
   <body>
     <div class="container-fluid">
-      <h1>RapPass</h1>
+      <div class="header">
+        <h1 style="background-color: red;">RapPass</h1>
+        <div class="switch" data-toggle="switch" id="on_off_switch"></div>
+      </div>
       <form>
         <legend>
           New column

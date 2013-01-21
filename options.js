@@ -58,13 +58,32 @@ function getUrlVars() {
     return vars;
 }
 
+function toggleSwitchByBootloaderOnOff() {
+	if (isSettingBootloaderEnable()) {
+		settingBootloaderEnable("disable");
+		showGrayPageIcon(chrome.tabs.getCurrent());
+	} else {
+		settingBootloaderEnable("enable");
+		showRedPageIcon(chrome.tabs.getCurrent());
+	}
+}
+
 $(document).ready(function(){
+
 	if(getUrlVars()["page_action"] == "true") {
+		// Truncate Url if option page from page icon
 		$("td.url_row, td.key_row").each(function(){
 			var url_ = $(this).text() ;
 		    if(url_.length > 40) { $(this).text(url_.substring(0,40) + "..."); }
 		});
+	} else {
+		chrome.tabs.getCurrent(function(tab) {
+			showRedPageIcon(tab.id);
+		});
 	}
+
+	// On Off Switch Event
+	document.querySelector('#on_off_switch').addEventListener('click', toggleSwitchByBootloaderOnOff);
 });
 
 
