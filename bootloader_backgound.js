@@ -1,4 +1,10 @@
 
+function fetchRapPass(base_url, sender, sendResponse) {
+
+	showGreenPageIcon(sender.tab.id);
+	sendResponse("");
+};
+
 function unlockPage(unlock_url, base_url, sender, sendResponse) {
 
     var xhr_ = new XMLHttpRequest();
@@ -13,13 +19,12 @@ function unlockPage(unlock_url, base_url, sender, sendResponse) {
 
     	    //DEBUG->
     		var resp_ = xhr_.responseText;
-    	    var regexe_ = new RegExp(base_url+"#[\\w=-]*");
+    	    var regexe_ = new RegExp(base_url+"[#\\w=-]*");
     	    var exec_ = (resp_.match(regexe_) || [])[0] || null;
     	    //DEBUG<-
 
     	    if(exec_) {
     	    	chrome.tabs.update(sender.tab.id, { url:exec_ });
-        		showGreenPageIcon(sender.tab.id);
     	    } else {
     	        showRedPageIcon(sender.tab.id);
     	    }
@@ -29,7 +34,8 @@ function unlockPage(unlock_url, base_url, sender, sendResponse) {
     	  }
     	}
     xhr_.send();
-    console.log("XMLHttpRequest Send");
+    console.log("XMLHttpRequest send");
+	sendResponse("XMLHttpRequest send : " + unlock_url);
 
     showRedPageIcon(sender.tab.id);
 };
@@ -46,8 +52,13 @@ function onMessageListener(message, sender, sendResponse) {
 	}
 
 	switch (message.action) {
+
 	case "request_unlock_page":
 		unlockPage(message.unlock_url, message.base_url, sender, sendResponse);
+		return;
+
+	case "request_fetch_rap_pass":
+		fetchRapPass(message.base_url, sender, sendResponse);
 		return;
 
 	default:

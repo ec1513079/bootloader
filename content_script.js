@@ -3,7 +3,7 @@ function requestRapPass(base_url) {
 	console.log("base url for rap : " + base_url);
 	chrome.extension.sendMessage(null, { action:"request_fetch_rap_pass", base_url:base_url }, function(response) {
 		console.log("fetched rap pass : " + response);
-		document.getElementsByName('exp_password')[0].setAttribute("value", response);
+		//document.getElementsByName('exp_password')[0].setAttribute("value", response);
 
 		//DEBUG->
 		document.getElementsByName('q')[0].setAttribute("value", response);
@@ -30,8 +30,7 @@ $(function() {
 	//DEBUG->
 	var acces = "http://dev.screw-axis.com/doc/chrome_extensions/tutorials/getting_started/";
 	var loc   = "http://www.chromium.org/getting-involved/dev-channel#TOC-Mac";
-	if(document.location.href == loc) { requestRapPass(loc); }
-	if(acces.innerText == "URLロック元に戻る") { requestRapPass(loc);
-	} else { requestUnlockPage(acces, loc); }
+	if(document.location.href == loc) { requestRapPass(loc); return; }
+	if(acces.innerText == "URLロック元に戻る") { requestRapPass(loc); } else { requestUnlockPage(acces, loc); }
 	//DEBUG<-
 });
