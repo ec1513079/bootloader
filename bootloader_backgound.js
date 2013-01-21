@@ -18,6 +18,8 @@ function unlockPage(unlock_url, base_url, sender, sendResponse) {
     	    if(exec_) {
     	    	chrome.tabs.update(sender.tab.id, { url:exec_ });
         		showGreenPageIcon(sender.tab.id);
+    	    } else {
+    	        showRedPageIcon(sender.tab.id);
     	    }
 
     		console.log("unlock page url : " + exec_);
@@ -26,6 +28,8 @@ function unlockPage(unlock_url, base_url, sender, sendResponse) {
     	}
     xhr_.send();
     console.log("XMLHttpRequest Send");
+
+    showRedPageIcon(sender.tab.id);
 };
 
 /************************************************
@@ -42,11 +46,13 @@ function onMessageListener(message, sender, sendResponse) {
 	switch (message.action) {
 	case "request_unlock_page":
 		unlockPage(message.unlock_url, message.base_url, sender, sendResponse);
-		break;
+		return;
 
 	default:
 		break;
 	}
+
+	sendResponse("uncatch action onMessageListener : " + message.action);
 };
 
 chrome.extension.onMessage.addListener(onMessageListener);
