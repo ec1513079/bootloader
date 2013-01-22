@@ -28,7 +28,6 @@ function object(o) {
 }
 object.f = function(){};
 
-
 /************************************************
  * Bootloader Enable/Disable
  ************************************************/
@@ -52,7 +51,6 @@ function isSettingBootloaderEnable() {
 		return false;
 	}
 }
-
 
 /************************************************
  * KeyPass List
@@ -98,10 +96,6 @@ function convertKeyPassObjectToTrTag(keyPass, index) {
 	"</tr>";
 	return tag_;
 }
-
-//$(function(){
-//	var keyPassList = settingBootloaderKeyPassList();
-//});
 
 /************************************************
  * Option Page Inner Script
@@ -168,7 +162,6 @@ $(document).ready(function(){
 //	    if(url_.length > 60) { $(this).text(url_.substring(0,60) + "..."); }
 //	});
 });
-
 
 /************************************************
  * Kick Start
