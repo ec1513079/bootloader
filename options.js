@@ -81,6 +81,7 @@ function setSettingBootloaderKeyPassList(list) {
 
 function getPassFromKey(key) {
 	var pass_ = "";
+	keyPassList = settingBootloaderKeyPassList();
 	jQuery.each(keyPassList, function(i, val) {
 		if(key == val.key) { pass_ = val.pass; }
 	});
