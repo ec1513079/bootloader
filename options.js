@@ -135,14 +135,6 @@ function deleteKeyPass(index) {
 
 $(document).ready(function(){
 
-	if(getUrlVars()["page_action"] == "true") {
-		// Truncate Url if option page from page icon
-		$("td.url_row, td.key_row").each(function(){
-			var url_ = $(this).text() ;
-		    if(url_.length > 40) { $(this).text(url_.substring(0,40) + "..."); }
-		});
-	}
-
 	// Init switch
 	if(isSettingBootloaderEnable()) { $("#on_off_switch").addClass("active"); }
 	// On Off Switch Event
@@ -155,6 +147,12 @@ $(document).ready(function(){
 		document.querySelector('#delete_button_'+i).addEventListener('click', deleteKeyPass(i));
 	});
 	document.querySelector('#add_button').addEventListener('click', addKeyPass);
+
+	// Truncate
+//	$("td.url_row, td.key_row").each(function(){
+//		var url_ = $(this).text() ;
+//	    if(url_.length > 60) { $(this).text(url_.substring(0,60) + "..."); }
+//	});
 });
 
 

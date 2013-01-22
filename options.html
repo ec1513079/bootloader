@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bootloader Setting</title>
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="bootstrap/css/bootstrap-switch.css" rel="stylesheet">
@@ -16,15 +17,15 @@
       <br />
       <br />
       <form>
-        <input type="text" placeholder="Key URL" id="key_input_box">
+        <input type="text" placeholder="Key Domain" id="key_input_box">
         <input type="text" placeholder="Pass" id="pass_input_box">
         <input type="text" placeholder="Searching URL" id="url_input_box">
         <button type="submit" class="btn btn-success" id="add_button">Add</button>
       </form>
-      <table class="table table-hover table-striped" id="key_pass_table">
+      <table class="table table-bordered table-hover" id="key_pass_table">
         <thead>
           <tr>
-            <th>Key URL</th>
+            <th>Key Domain</th>
             <th>Pass</th>
             <th>Searching URL</th>
             <th>Delete</th>
@@ -38,5 +39,6 @@
       </div>
       <br />
       <br />
+    </div>
   </body>
 </html>
