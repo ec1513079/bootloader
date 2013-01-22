@@ -4,10 +4,7 @@ function requestRapPass(key) {
 	chrome.extension.sendMessage(null, { action:"request_fetch_rap_pass", key:key }, function(response) {
 		console.log("fetched rap pass : " + response);
 
-		//document.getElementsByName('exp_password')[0].setAttribute("value", response);
-		//DEBUG->
-		document.getElementsByName('q')[0].setAttribute("value", response);
-		//DEBUG<-
+		document.getElementsByName('exp_password')[0].setAttribute("value", response);
 	});
 };
 
@@ -20,23 +17,11 @@ function requestUnlockPage(key, unlock_url) {
 };
 
 $(function() {
-//	var acces_ = document.getElementById('acces').getElementsByTagName("a")[0];
-//	var location_ = document.location.href;
-//	if(acces.innerText == "URLロック元に戻る") {
-//		requestRapPass(location_);
-//	} else {
-//		requestUnlockPage(acces_.innerText, location_);
-//	}
-
-	//DEBUG->
-	if(document.location.href == loc) {
-		requestRapPass("hogehoge.fuga");
-		return;
-	}
+	var acces_ = document.getElementById('acces').getElementsByTagName("a")[0];
+	var location_ = document.location.href;
 	if(acces.innerText == "URLロック元に戻る") {
-		requestRapPass("hogehoge.fuga");
+		requestRapPass(location_);
 	} else {
-		requestUnlockPage("http://www.chromium.org/", loc);
+		requestUnlockPage(acces_.innerText, location_);
 	}
-	//DEBUG<-
 });

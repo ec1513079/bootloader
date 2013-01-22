@@ -24,15 +24,9 @@ function unlockPage(key, unlock_url, sender, sendResponse) {
 
     	  if (xhr_.readyState == 4) {
 
-    	    //var resp_ = xhr_.responseText;
-    	    //var regexe_ = new RegExp(unlock_url+"?[\\w=-]*");
-    	    //var exec_ = (resp_.match(regexe_) || [])[0] || null;
-
-    	    //DEBUG->
-    		var resp_ = xhr_.responseText;
-    	    var regexe_ = new RegExp(unlock_url+"[#\\w=-]*");
+    	    var resp_ = xhr_.responseText;
+    	    var regexe_ = new RegExp(unlock_url+"?[\\w=-]*");
     	    var exec_ = (resp_.match(regexe_) || [])[0] || null;
-    	    //DEBUG<-
 
     	    if(exec_) {
     	    	chrome.tabs.update(sender.tab.id, { url:exec_ });
