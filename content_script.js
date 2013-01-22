@@ -46,7 +46,7 @@ function exploaderRapPass() {
 }
 
 function twodbookRapPass() {
-	var key_ = $("div.info a").first().text();
+	var key_ = $("div.info a").first()[0].href.split('/')[2];
 	var location_ = document.location.href;
 	if($("p.status").text() == "データはロックされていません") {
 		requestRapPass(key_, function(pass){ $("input#dlkey").val(pass); });
