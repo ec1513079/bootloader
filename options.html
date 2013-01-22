@@ -12,15 +12,14 @@
   </head>
   <body>
     <div class="container-fluid">
-      <h1>Bootloader Setting</h1>
+      <h3>Bootloader Setting</h3>
       <div class="switch" data-toggle="switch" id="on_off_switch"></div>
-      <br />
-      <br />
+      <h4 class="page-header">Key/Pass</h4>
       <form>
         <input type="text" placeholder="Key Domain" id="key_input_box">
         <input type="text" placeholder="Pass" id="pass_input_box">
         <input type="text" placeholder="Searching URL" id="url_input_box">
-        <button type="submit" class="btn btn-success" id="add_button">Add</button>
+        <button type="submit" class="btn btn-success" id="add_button" style="margin-bottom: 9px;">Add</button>
       </form>
       <table class="table table-bordered table-hover" id="key_pass_table">
         <thead>
@@ -32,10 +31,37 @@
           </tr>
         </thead>
       </table>
-      <br />
+      <h4 class="page-header">Data Import/Export</h4>
       <div class="btn-group">
-        <a class="btn btn-primary" href="#"><i class="icon-arrow-down icon-white"></i> Import</a>
-        <a class="btn btn-primary" href="#"><i class="icon-share-alt icon-white"></i> Export</a>
+        <button class="btn btn-primary" id="import_button"><i class="icon-arrow-down icon-white"></i> Import</button>
+        <button class="btn btn-primary" id="export_button"><i class="icon-share-alt icon-white"></i> Export</button>
+      </div>
+      <div id="import_modal" class="modal hide fade">
+        <div class="modal-header">
+          <h4>Import from JSON</h4>
+        </div>
+        <div class="modal-body" id="import_data" style="text-align: center; word-wrap: break-word;">
+        
+<div class="alert alert-error hide fade in">
+</div>
+        
+          <textarea class="span6" rows="10" id="import_textarea"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+          <button class="btn btn-primary" id="import_data_button"><i class="icon-download-alt icon-white"></i> Import</button>
+        </div>
+      </div>
+      <div id="export_modal" class="modal hide fade">
+        <div class="modal-header">
+          <h4>Exported to JSON</h4>
+        </div>
+        <div class="modal-body" id="export_data" style="word-wrap: break-word;">
+        </div>
+        <div class="modal-footer">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+          <button class="btn btn-primary" id="export_copy_button"><i class="icon-file icon-white"></i> Copy</button>
+        </div>
       </div>
       <br />
       <br />
