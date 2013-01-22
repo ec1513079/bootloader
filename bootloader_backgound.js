@@ -25,7 +25,7 @@ function unlockPage(key, unlock_url, sender, sendResponse) {
     	  if (xhr_.readyState == 4) {
 
     	    var resp_ = xhr_.responseText;
-    	    var regexe_ = new RegExp(unlock_url+"?[\\w=-]*");
+    	    var regexe_ = new RegExp(unlock_url+"\\?session=[\\w]+");
     	    var exec_ = (resp_.match(regexe_) || [])[0] || null;
 
     	    if(exec_) {
