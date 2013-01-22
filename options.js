@@ -61,6 +61,7 @@ var KeyPass = {
 		pass : "",
 		url  : ""
 };
+var keyPassList = [];
 
 function settingBootloaderKeyPassList() {
 	var list_ = [];
@@ -77,13 +78,14 @@ function setSettingBootloaderKeyPassList(list) {
 }
 
 function convertKeyPassObjectToTrTag(keyPass, index) {
-	return
-	"<tr>"
+	var tag_ =
+	"<tr>" +
 	"<td class='key_row'>"  + keyPass["key"]  + "</td>" +
 	"<td class='pass_row'>" + keyPass["pass"] + "</td>" +
 	"<td class='url_row'>"  + keyPass["url"]  + "</td>" +
 	"<td class='edit_row'><a class='btn btn-small' href='delete#index=" + index + "'><i class='icon-trash'></i></a></td>" +
 	"</tr>";
+	return tag_;
 }
 
 
@@ -111,6 +113,16 @@ function toggleSwitchByBootloaderOnOff() {
 	}
 }
 
+function addKeyPass() {
+	var keyPass = object(KeyPass, {
+		key:  $("input#key_input_box").val(),
+		pass: $("input#pass_input_box").val(),
+		url:  $("input#url_input_box").val()
+	});
+	keyPassList.push(keyPass);
+	setSettingBootloaderKeyPassList(keyPassList);
+}
+
 $(document).ready(function(){
 
 	if(getUrlVars()["page_action"] == "true") {
@@ -127,10 +139,11 @@ $(document).ready(function(){
 	document.querySelector('#on_off_switch').addEventListener('click', toggleSwitchByBootloaderOnOff);
 
 	// Init List
-	var list_ = settingBootloaderKeyPassList();
-	jQuery.each(list_, function(i, val) {
+	keyPassList = settingBootloaderKeyPassList();
+	jQuery.each(keyPassList, function(i, val) {
 		$("table#key_pass_table").append(convertKeyPassObjectToTrTag(val, i));
 	});
+	document.querySelector('#add_button').addEventListener('click', addKeyPass);
 });
 
 

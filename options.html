@@ -5,7 +5,6 @@
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="bootstrap/css/bootstrap-switch.css" rel="stylesheet">
     <script src="jquery/js/jquery-1.9.0.min.js"></script>
-    <script src="jquery/js/jquery.tablesorter.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="bootstrap/js/bootstrap-switch.js"></script>
     <script src="options.js"></script>
@@ -17,11 +16,10 @@
       <br />
       <br />
       <form>
-        <legend>New column</legend>
-        <input type="text" placeholder="Key URL">
-        <input type="text" placeholder="Pass">
-        <input type="text" placeholder="Searching URL">
-        <button type="submit" class="btn btn-success">Add</button>
+        <input type="text" placeholder="Key URL" id="key_input_box">
+        <input type="text" placeholder="Pass" id="pass_input_box">
+        <input type="text" placeholder="Searching URL" id="url_input_box">
+        <button type="submit" class="btn btn-success" id="add_button">Add</button>
       </form>
       <table class="table table-hover" id="key_pass_table">
         <thead>
