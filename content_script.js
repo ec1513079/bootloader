@@ -40,13 +40,19 @@ function exploaderRapPass() {
 		var params_ = getParamsFromUrl(unescape($("div#acces a").first()[0].href));
 		key_ = params_["url"].split('/')[2];
 		requestRapPass(key_, function(pass){ $("input[name='exp_password']").val(pass); });
-	} else {
+	} else if(document.location.href.indexOf("www.exploader.net/download") != -1) {
 		requestUnlockPage(key_, location_+"\\?session=[\\w]+");
 	}
 }
 
 function twodbookRapPass() {
-
+	var key_ = $("div.info a").first().text();
+	var location_ = document.location.href;
+	if($("p.status").text() == "データはロックされていません") {
+		requestRapPass(key_, function(pass){ $("input#dlkey").val(pass); });
+	} else if(document.location.href.indexOf("2dbook.com/books") != -1) {
+		requestUnlockPage(key_, location_+"/[\\w.]+");
+	}
 }
 
 $(function() {

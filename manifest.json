@@ -22,7 +22,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["http://www.exploader.net/*"],
+      "matches": ["http://www.exploader.net/*","http://2dbook.com/books/*"],
       "js": ["jquery/js/jquery-1.9.0.min.js","content_script.js"],
       "run_at": "document_end"
     }
