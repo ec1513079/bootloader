@@ -61,10 +61,8 @@ function getUrlVars() {
 function toggleSwitchByBootloaderOnOff() {
 	if (isSettingBootloaderEnable()) {
 		settingBootloaderEnable("disable");
-		showGrayPageIcon(chrome.tabs.getCurrent());
 	} else {
 		settingBootloaderEnable("enable");
-		showRedPageIcon(chrome.tabs.getCurrent());
 	}
 }
 
@@ -76,12 +74,10 @@ $(document).ready(function(){
 			var url_ = $(this).text() ;
 		    if(url_.length > 40) { $(this).text(url_.substring(0,40) + "..."); }
 		});
-	} else {
-		chrome.tabs.getCurrent(function(tab) {
-			showRedPageIcon(tab.id);
-		});
 	}
 
+	// Init switch
+	if(isSettingBootloaderEnable()) { $("#on_off_switch").addClass("active"); }
 	// On Off Switch Event
 	document.querySelector('#on_off_switch').addEventListener('click', toggleSwitchByBootloaderOnOff);
 });

@@ -18,8 +18,7 @@
   "page_action":
   {
     "default_icon" : "img/icon-19-disable.png",
-    "default_title": "Bootloader",
-    "default_popup": "options.html?page_action=true"
+    "default_title": "Bootloader"
   },
   "content_scripts": [
     {

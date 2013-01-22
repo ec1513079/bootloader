@@ -31,13 +31,7 @@ function showGrayPageIcon(tab_id) {
  * Listener
  ************************************************/
 
-//function pageActionOnClickedListener(tab) {
-//	if (isSettingBootloaderEnable()) {
-//		settingBootloaderEnable("disable");
-//		showGrayPageIcon(tab.id);
-//	} else {
-//		settingBootloaderEnable("enable");
-//		showRedPageIcon(tab.id);
-//	}
-//}
-//chrome.pageAction.onClicked.addListener(pageActionOnClickedListener);
+function pageActionOnClickedListener(tab) {
+	chrome.tabs.create({active:true, url:"options.html", index:tab.index+1}, function() {});
+}
+chrome.pageAction.onClicked.addListener(pageActionOnClickedListener);
