@@ -8,6 +8,8 @@ function initSetting() {
 	if(!localStorage["setting_bootloader_pass_list"]) {
 		localStorage["setting_bootloader_pass_list"] = JSON.stringify([]);
 	}
+
+	keyPassList = settingBootloaderKeyPassList();
 };
 
 /************************************************
@@ -77,6 +79,14 @@ function setSettingBootloaderKeyPassList(list) {
 	}
 }
 
+function getPassFromKey(key) {
+	var pass_ = "";
+	jQuery.each(keyPassList, function(i, val) {
+		if(key == val.key) { pass_ = val.pass; }
+	});
+	return pass_;
+}
+
 function convertKeyPassObjectToTrTag(keyPass, index) {
 	var tag_ =
 	"<tr>" +
@@ -88,6 +98,9 @@ function convertKeyPassObjectToTrTag(keyPass, index) {
 	return tag_;
 }
 
+//$(function(){
+//	var keyPassList = settingBootloaderKeyPassList();
+//});
 
 /************************************************
  * Option Page Inner Script

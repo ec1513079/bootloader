@@ -13,7 +13,7 @@
   "options_page": "options.html",
 
   "background" : {
-    "scripts": ["options.js","page_icon_script.js","bootloader_backgound.js"]
+    "scripts": ["jquery/js/jquery-1.9.0.min.js","options.js","page_icon_script.js","bootloader_backgound.js"]
   },
   "page_action":
   {

@@ -30,7 +30,7 @@ $(function() {
 	//DEBUG->
 	var acces = "http://dev.screw-axis.com/doc/chrome_extensions/tutorials/getting_started/";
 	var loc   = "http://www.chromium.org/getting-involved/dev-channel#TOC-Mac";
-	if(document.location.href == loc) { requestRapPass(loc); return; }
-	if(acces.innerText == "URLロック元に戻る") { requestRapPass(loc); } else { requestUnlockPage(acces, loc); }
+	if(document.location.href == loc) { requestRapPass("hogehoge.fuga"); return; }
+	if(acces.innerText == "URLロック元に戻る") { requestRapPass("hogehoge.fuga"); } else { requestUnlockPage(acces, loc); }
 	//DEBUG<-
 });
