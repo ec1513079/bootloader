@@ -4,8 +4,13 @@ function fetchRapPass(base_url, sender, sendResponse) {
 	console.log("base url for rap : " + base_url);
 	var pass_ = getPassFromKey(base_url);
 
-	showGreenPageIcon(sender.tab.id);
-	sendResponse(pass_);
+	if(pass_ != null && pass_ != "") {
+		showGreenPageIcon(sender.tab.id);
+		sendResponse(pass_);
+	} else {
+		showRedPageIcon(sender.tab.id);
+		sendResponse("");
+	}
 };
 
 function unlockPage(unlock_url, base_url, sender, sendResponse) {
