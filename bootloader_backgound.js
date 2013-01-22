@@ -13,7 +13,7 @@ function fetchRapPass(key, sender, sendResponse) {
 	}
 };
 
-function unlockPage(key, unlock_url, sender, sendResponse) {
+function unlockPage(key, unlock_url_regexp, sender, sendResponse) {
 
 	var url_ = getSearchUrlFromKey(key);
     console.log("XMLHttpRequest send : " + url_);
@@ -25,8 +25,8 @@ function unlockPage(key, unlock_url, sender, sendResponse) {
     	  if (xhr_.readyState == 4) {
 
     	    var resp_ = xhr_.responseText;
-    	    var regexe_ = new RegExp(unlock_url+"\\?session=[\\w]+");
-    	    var exec_ = (resp_.match(regexe_) || [])[0] || null;
+    	    var regexp_ = new RegExp(unlock_url_regexp);
+    	    var exec_ = (resp_.match(regexp_) || [])[0] || null;
 
     	    if(exec_) {
     	    	chrome.tabs.update(sender.tab.id, { url:exec_ });
@@ -60,7 +60,7 @@ function onMessageListener(message, sender, sendResponse) {
 	switch (message.action) {
 
 	case "request_unlock_page":
-		unlockPage(message.key, message.unlock_url, sender, sendResponse);
+		unlockPage(message.key, message.unlock_url_regexp, sender, sendResponse);
 		return;
 
 	case "request_fetch_rap_pass":

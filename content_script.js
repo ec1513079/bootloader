@@ -1,8 +1,8 @@
 
-function requestUnlockPage(key, unlock_url) {
+function requestUnlockPage(key, unlock_url_regexp) {
 	console.log("key : " + key);
-	console.log("unlock url : " + unlock_url);
-	chrome.extension.sendMessage(null, { action:"request_unlock_page", key:key, unlock_url:unlock_url }, function(response) {
+	console.log("unlock url : " + unlock_url_regexp);
+	chrome.extension.sendMessage(null, { action:"request_unlock_page", key:key, unlock_url_regexp:unlock_url_regexp }, function(response) {
 		console.log("unlock response : " + response);
 	});
 };
@@ -41,12 +41,18 @@ function exploaderRapPass() {
 		key_ = params_["url"].split('/')[2];
 		requestRapPass(key_, function(pass){ $("input[name='exp_password']").val(pass); });
 	} else {
-		requestUnlockPage(key_, location_);
+		requestUnlockPage(key_, location_+"\\?session=[\\w]+");
 	}
+}
+
+function twodbookRapPass() {
+
 }
 
 $(function() {
 	if(document.domain == "www.exploader.net") {
 		exploaderRapPass();
+	} else if (document.domain == "2dbook.com") {
+		twodbookRapPass();
 	}
 });
