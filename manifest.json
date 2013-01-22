@@ -30,7 +30,7 @@
 
   "permissions": [
     "tabs",
-    "http://*/",
-    "httpd://*/"
+    "http://*/*",
+    "https://*/*"
   ]
 }
