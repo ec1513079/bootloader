@@ -86,6 +86,15 @@ function getPassFromKey(key) {
 	return pass_;
 }
 
+function getSearchUrlFromKey(key) {
+	var url_ = "";
+	keyPassList = settingBootloaderKeyPassList();
+	jQuery.each(keyPassList, function(i, val) {
+		if(key == val.key) { url_ = val.url; }
+	});
+	return url_;
+}
+
 function convertKeyPassObjectToTrTag(keyPass, index) {
 	var tag_ =
 	"<tr>" +

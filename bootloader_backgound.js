@@ -1,8 +1,8 @@
 
-function fetchRapPass(base_url, sender, sendResponse) {
+function fetchRapPass(key, sender, sendResponse) {
 
-	console.log("base url for rap : " + base_url);
-	var pass_ = getPassFromKey(base_url);
+	console.log("base domain for rap : " + key);
+	var pass_ = getPassFromKey(key);
 
 	if(pass_ != null && pass_ != "") {
 		showGreenPageIcon(sender.tab.id);
@@ -13,21 +13,24 @@ function fetchRapPass(base_url, sender, sendResponse) {
 	}
 };
 
-function unlockPage(unlock_url, base_url, sender, sendResponse) {
+function unlockPage(key, unlock_url, sender, sendResponse) {
+
+	var url_ = getSearchUrlFromKey(key);
+    console.log("XMLHttpRequest send : " + url_);
 
     var xhr_ = new XMLHttpRequest();
-    xhr_.open("GET", unlock_url, true);
+    xhr_.open("GET", url_, true);
     xhr_.onreadystatechange = function() {
 
     	  if (xhr_.readyState == 4) {
 
     	    //var resp_ = xhr_.responseText;
-    	    //var regexe_ = new RegExp(base_url+"?[\\w=-]*");
+    	    //var regexe_ = new RegExp(unlock_url+"?[\\w=-]*");
     	    //var exec_ = (resp_.match(regexe_) || [])[0] || null;
 
     	    //DEBUG->
     		var resp_ = xhr_.responseText;
-    	    var regexe_ = new RegExp(base_url+"[#\\w=-]*");
+    	    var regexe_ = new RegExp(unlock_url+"[#\\w=-]*");
     	    var exec_ = (resp_.match(regexe_) || [])[0] || null;
     	    //DEBUG<-
 
@@ -42,10 +45,9 @@ function unlockPage(unlock_url, base_url, sender, sendResponse) {
     	  }
     	}
     xhr_.send();
-    console.log("XMLHttpRequest send");
-	sendResponse("XMLHttpRequest send : " + unlock_url);
 
     showRedPageIcon(sender.tab.id);
+	sendResponse("XMLHttpRequest send : " + url_);
 };
 
 
@@ -64,11 +66,11 @@ function onMessageListener(message, sender, sendResponse) {
 	switch (message.action) {
 
 	case "request_unlock_page":
-		unlockPage(message.unlock_url, message.base_url, sender, sendResponse);
+		unlockPage(message.key, message.unlock_url, sender, sendResponse);
 		return;
 
 	case "request_fetch_rap_pass":
-		fetchRapPass(message.base_url, sender, sendResponse);
+		fetchRapPass(message.key, sender, sendResponse);
 		return;
 
 	default:
