@@ -151,12 +151,9 @@ function deleteKeyPass(index) {
 }
 
 function importKeyPassList() {
+	$("#import_alert").text("");
+	$("#import_alert").fadeOut();
 	$('div#import_modal').modal('show');
-}
-
-function exportKeyPassList() { 
-	$('div#export_data').text(localStorage["setting_bootloader_pass_list"]);
-	$('div#export_modal').modal('show');
 }
 
 function importKeyPassListFromJson() {
@@ -164,9 +161,18 @@ function importKeyPassListFromJson() {
 		var json_ = $("textarea#import_textarea").val();
 		if (json_ == "") { throw "Please input json string."; }
 		var list_ = JSON.parse(json_);
+
+    	$("#import_alert").text("");
+		$("#import_alert").fadeOut();
 	} catch (e) {
-    	alert(e);
+    	$("#import_alert").text(e);
+    	$("#import_alert").fadeIn();
 	}
+}
+
+function exportKeyPassList() {
+	$('div#export_data').text(localStorage["setting_bootloader_pass_list"]);
+	$('div#export_modal').modal('show');
 }
 
 function copyExportedJsonToClipboard() {
@@ -192,17 +198,17 @@ $(document).ready(function(){
 		document.querySelector('#delete_button_'+i).addEventListener('click', deleteKeyPass(i));
 	});
 	document.querySelector('#add_button').addEventListener('click', addKeyPass);
-	
+
 	// Init Import and Export button
 	document.querySelector('button#import_button').addEventListener('click', importKeyPassList);
 	document.querySelector('button#export_button').addEventListener('click', exportKeyPassList);
-	
+
 	// Init Modal
 	$('div#import_modal').modal({ keyboard: false, show: false });
 	document.querySelector('button#import_data_button').addEventListener('click', importKeyPassListFromJson);
 	$('div#export_modal').modal({ keyboard: false, show: false });
 	document.querySelector('button#export_copy_button').addEventListener('click', copyExportedJsonToClipboard);
-	
+
 	// Truncate
 //	$("td.url_row, td.key_row").each(function(){
 //		var url_ = $(this).text() ;
