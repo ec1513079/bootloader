@@ -34,11 +34,10 @@ function getParamsFromUrl(str) {
  ************************************************/
 
 function exploaderRapPass() {
-	var key_ = $("div#acces a").first().text();
+	var params_   = getParamsFromUrl(unescape($("div#acces a").first()[0].href));
+	var key_      = params_["url"];
 	var location_ = document.location.href;
-	if(key_ == "URLロック元に戻る") {
-		var params_ = getParamsFromUrl(unescape($("div#acces a").first()[0].href));
-		key_ = params_["url"].split('/')[2];
+	if($("div#acces a").first().text() == "URLロック元に戻る") {
 		requestRapPass(key_, function(pass){ $("input[name='exp_password']").val(pass); });
 	} else if(document.location.href.indexOf("www.exploader.net/download") != -1) {
 		requestUnlockPage(key_, location_+"\\?session=[\\w]+");
@@ -46,7 +45,7 @@ function exploaderRapPass() {
 }
 
 function twodbookRapPass() {
-	var key_ = $("div.info a").first()[0].href.split('/')[2];
+	var key_ = $("div.info a").first()[0].href;
 	var location_ = document.location.href;
 	if($("p.status").text() == "データはロックされていません") {
 		requestRapPass(key_, function(pass){ $("input#dlkey").val(pass); });
