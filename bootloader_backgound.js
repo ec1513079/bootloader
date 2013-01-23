@@ -1,18 +1,4 @@
 
-function fetchRapPass(key, sender, sendResponse) {
-
-	console.log("base domain for rap : " + key);
-	var pass_ = getPassFromKey(key);
-
-	if(pass_ != null && pass_ != "") {
-		showGreenPageIcon(sender.tab.id);
-		sendResponse(pass_);
-	} else {
-		showRedPageIcon(sender.tab.id);
-		sendResponse("");
-	}
-};
-
 function unlockPage(key, unlock_url_regexp, sender, sendResponse) {
 
 	var url_ = getSearchUrlFromKey(key);
@@ -44,6 +30,19 @@ function unlockPage(key, unlock_url_regexp, sender, sendResponse) {
 	sendResponse("XMLHttpRequest send : " + url_);
 };
 
+function fetchRapPass(key, sender, sendResponse) {
+
+	console.log("base domain for rap : " + key);
+	var pass_ = getPassFromKey(key);
+
+	if(pass_ != null && pass_ != "") {
+		showGreenPageIcon(sender.tab.id);
+		sendResponse(pass_);
+	} else {
+		showRedPageIcon(sender.tab.id);
+		sendResponse("");
+	}
+};
 
 /************************************************
  * Listener

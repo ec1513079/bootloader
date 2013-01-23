@@ -161,9 +161,22 @@ function importKeyPassListFromJson() {
 		var json_ = $("textarea#import_textarea").val();
 		if (json_ == "") { throw "Please input json string."; }
 		var list_ = JSON.parse(json_);
+		jQuery.each(list_, function(i, val) {
+			if(val.key === undefined || val.pass === undefined || val.url === undefined) {
+				throw "undefined param in ('"+val.key+"','"+val.pass+"','"+val.url+"') : index is "+i+".";
+			}
+			keyPassList.push(object(KeyPass, {
+				key:  val.key,
+				pass: val.pass,
+				url:  val.url
+			}));
+		});
+		setSettingBootloaderKeyPassList(keyPassList);
 
     	$("#import_alert").text("");
 		$("#import_alert").fadeOut();
+
+		document.location.reload(true)
 	} catch (e) {
     	$("#import_alert").text(e);
     	$("#import_alert").fadeIn();
