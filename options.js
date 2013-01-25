@@ -97,14 +97,29 @@ function getSearchUrlFromKey(key) {
 
 function convertKeyPassObjectToTrTag(keyPass, index) {
 	var tag_ =
-	"<tr>" +
-	"<td class='key_row'>"  + keyPass["key"]  + "</td>" +
-	"<td class='pass_row'>" + keyPass["pass"] + "</td>" +
-	"<td class='url_row'>"  + keyPass["url"]  + "</td>" +
+	"<tr id='key_pass_tr_"+index+"'>" +
+	"<td class='key_row'  id='key_"+index+"'>"  + keyPass["key"]  + "</td>" +
+	"<td class='pass_row' id='pass_"+index+"'>" + keyPass["pass"] + "</td>" +
+	"<td class='url_row'  id='url_"+index+"'>"  + keyPass["url"]  + "</td>" +
 	"<td class='edit_row' style='text-align: center;'><div class='btn-group'>" + 
 		"<button class='btn btn-small' type='submit' id='edit_button_"+index+"'><i class='icon-pencil'></i></button>" + 
 		"<button class='btn btn-small' type='submit' id='delete_button_"+index+"'><i class='icon-trash'></i></button>" + 
 	"</div></td>" +
+	"</tr>";
+	return tag_;
+}
+
+function convertKeyPassObjectToEditingTrTag(keyPass, index) {
+	var tag_ =
+	"<tr id='key_pass_tr_"+index+"_edit"+"'>" +
+	"<form>" +
+	"<td class='key_row'>"  + '<input type="text" id="key_'  + index + '_edit" value="' + keyPass["key"]  + '">' + "</td>" +
+	"<td class='pass_row'>" + '<input type="text" id="pass_' + index + '_edit" value="' + keyPass["pass"] + '">' + "</td>" +
+	"<td class='url_row'>"  + '<input type="text" id="url_'  + index + '_edit" value="' + keyPass["url"]  + '">' + "</td>" +
+	"<td class='edit_row' style='text-align: center;'><div class='btn-group'>" + 
+		"<button class='btn btn-small' type='submit' id='ok_button_"+index+"'><i class='icon-ok'></i></button>" + 
+	"</div></td>" +
+	"</form>" +
 	"</tr>";
 	return tag_;
 }
@@ -140,8 +155,29 @@ function addKeyPass() {
 		pass: $("input#pass_input_box").val(),
 		url:  $("input#url_input_box").val()
 	});
-	keyPassList.push(keyPass);
+	keyPassList.splice(0,0,keyPass);
 	setSettingBootloaderKeyPassList(keyPassList);
+}
+
+function editKeyPass(index) {
+	return function() {
+		var tr_tag = $("tr#key_pass_tr_"+index);
+		var edit_tr_tag = convertKeyPassObjectToEditingTrTag(keyPassList[index], index);
+		tr_tag.after(edit_tr_tag);
+		tr_tag.remove();
+		document.querySelector('#ok_button_'+index).addEventListener('click', okKeyPass(index));
+	};
+}
+
+function okKeyPass(index) {
+	return function() {
+		var keyPass_ = keyPassList[index];
+		keyPass_["key"]  = $("input#key_"  + index + "_edit").val();
+		keyPass_["pass"] = $("input#pass_" + index + "_edit").val();
+		keyPass_["url"]  = $("input#url_"  + index + "_edit").val();
+		setSettingBootloaderKeyPassList(keyPassList);
+		document.location.reload(true);
+	};
 }
 
 function deleteKeyPass(index) {
@@ -149,7 +185,7 @@ function deleteKeyPass(index) {
 		console.log("delete button clicked : " + index);
 		keyPassList.splice(index, 1);
 		setSettingBootloaderKeyPassList(keyPassList);
-		document.location.reload(true)
+		document.location.reload(true);
 	};
 }
 
@@ -211,6 +247,7 @@ $(document).ready(function(){
 	keyPassList = settingBootloaderKeyPassList();
 	jQuery.each(keyPassList, function(i, val) {
 		$("table#key_pass_table").append(convertKeyPassObjectToTrTag(val, i));
+		document.querySelector('#edit_button_'+i).addEventListener('click', editKeyPass(i));
 		document.querySelector('#delete_button_'+i).addEventListener('click', deleteKeyPass(i));
 	});
 	document.querySelector('#add_button').addEventListener('click', addKeyPass);
