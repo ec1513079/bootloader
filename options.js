@@ -101,7 +101,10 @@ function convertKeyPassObjectToTrTag(keyPass, index) {
 	"<td class='key_row'>"  + keyPass["key"]  + "</td>" +
 	"<td class='pass_row'>" + keyPass["pass"] + "</td>" +
 	"<td class='url_row'>"  + keyPass["url"]  + "</td>" +
-	"<td class='edit_row'><button class='btn btn-small' type='submit' id='delete_button_"+index+"'><i class='icon-trash'></i></button></td>" +
+	"<td class='edit_row' style='text-align: center;'><div class='btn-group'>" + 
+		"<button class='btn btn-small' type='submit' id='edit_button_"+index+"'><i class='icon-pencil'></i></button>" + 
+		"<button class='btn btn-small' type='submit' id='delete_button_"+index+"'><i class='icon-trash'></i></button>" + 
+	"</div></td>" +
 	"</tr>";
 	return tag_;
 }
