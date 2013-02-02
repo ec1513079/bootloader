@@ -28,6 +28,23 @@ function object(o) {
 }
 object.f = function(){};
 
+function duplicateCheck(array) {
+	var storage = {};
+	var uniqueArray = [];
+	var duplicatedArray = [];
+	var i,value;
+	for ( i=0; i < array.length; i++) {
+		value = array[i];
+		if (!(value.key in storage)) {
+			storage[value.key] = true;
+			uniqueArray.push(value);
+		} else {
+			duplicatedArray.push(value);
+		}
+	}
+	return { unique : uniqueArray, duplicate : duplicatedArray };
+}
+
 /************************************************
  * Bootloader Enable/Disable
  ************************************************/
@@ -215,7 +232,7 @@ function importKeyPassListFromJson() {
     	$("#import_alert").text("");
 		$("#import_alert").fadeOut();
 
-		document.location.reload(true)
+		document.location.reload(true);
 	} catch (e) {
     	$("#import_alert").text(e);
     	$("#import_alert").fadeIn();
@@ -234,6 +251,32 @@ function copyExportedJsonToClipboard() {
 	copyArea.select();
 	document.execCommand("copy");
 	copyArea.remove();
+}
+
+function deDupKeyPassList() {
+	var result_ = duplicateCheck(keyPassList);
+	
+	$("#dup_table > tbody").empty();
+	var tag_ = "<tbody>";
+	jQuery.each(result_.duplicate, function(i, val) {
+		tag_ +=  "<tr id='key_pass_tr_"+i+"'>" +
+		"<td class='key_row'  id='key_"+i+"'>"  + val["key"]  + "</td>" +
+		"<td class='pass_row' id='pass_"+i+"'>" + val["pass"] + "</td>" +
+		"</tr>";
+	});
+	tag_ = tag_ + "</tbody>";
+	$("#dup_table").append(tag_)
+	
+	$('div#dedup_modal').modal('show');
+}
+
+function deleteDuplicatedKeyPass() {
+	var result_ = duplicateCheck(keyPassList);
+	setSettingBootloaderKeyPassList(result_.unique);
+	
+	$("#dup_table > tbody").empty();
+	
+	document.location.reload(true);
 }
 
 $(document).ready(function(){
@@ -255,12 +298,15 @@ $(document).ready(function(){
 	// Init Import and Export button
 	document.querySelector('button#import_button').addEventListener('click', importKeyPassList);
 	document.querySelector('button#export_button').addEventListener('click', exportKeyPassList);
+	document.querySelector('button#dedup_button').addEventListener('click', deDupKeyPassList);
 
 	// Init Modal
 	$('div#import_modal').modal({ keyboard: false, show: false });
 	document.querySelector('button#import_data_button').addEventListener('click', importKeyPassListFromJson);
 	$('div#export_modal').modal({ keyboard: false, show: false });
 	document.querySelector('button#export_copy_button').addEventListener('click', copyExportedJsonToClipboard);
+	$('div#dedup_modal').modal({ keyboard: false, show: false });
+	document.querySelector('button#delete_dup_button').addEventListener('click', deleteDuplicatedKeyPass);
 
 	// Truncate
 //	$("td.url_row, td.key_row").each(function(){

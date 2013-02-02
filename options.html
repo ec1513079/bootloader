@@ -38,6 +38,7 @@
       <div class="btn-group">
         <button class="btn btn-primary" id="import_button"><i class="icon-arrow-down icon-white"></i> Import</button>
         <button class="btn btn-primary" id="export_button"><i class="icon-share-alt icon-white"></i> Export</button>
+        <button class="btn btn-primary" id="dedup_button"><i class="icon-filter icon-white"></i> DeDuplicate</button>
       </div>
       <div id="import_modal" class="modal hide fade">
         <div class="modal-header">
@@ -61,6 +62,25 @@
         <div class="modal-footer">
           <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
           <button class="btn btn-primary" id="export_copy_button"><i class="icon-file icon-white"></i> Copy</button>
+        </div>
+      </div>
+      <div id="dedup_modal" class="modal hide fade">
+        <div class="modal-header">
+          <h4>Delete Duplicating Data</h4>
+        </div>
+        <div class="modal-body" id="dedup_data" style="word-wrap: break-word;">
+          <table class="table table-bordered table-hover" id="dup_table">
+            <thead>
+              <tr>
+                <th>Key URL</th>
+                <th>Pass</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+          <button class="btn btn-danger" id="delete_dup_button"><i class="icon-trash icon-white"></i> Delete</button>
         </div>
       </div>
       
