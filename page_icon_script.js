@@ -32,6 +32,8 @@ function showGrayPageIcon(tab_id) {
  ************************************************/
 
 function pageActionOnClickedListener(tab) {
-	chrome.tabs.create({active:true, url:"options.html", index:tab.index+1}, function() {});
+	chrome.tabs.sendMessage(tab.id, { action:"get_key_url" }, function(response) {
+		chrome.tabs.create({active:true, url:"options.html?key_url="+response, index:tab.index+1}, function() {});
+	});
 }
 chrome.pageAction.onClicked.addListener(pageActionOnClickedListener);

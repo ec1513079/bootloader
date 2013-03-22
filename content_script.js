@@ -33,9 +33,14 @@ function getParamsFromUrl(str) {
  * www.exploader.net and 2dbook.com
  ************************************************/
 
-function exploaderRapPass() {
+function exploaderKey() {
 	var params_   = getParamsFromUrl(unescape($("div#acces a").first()[0].href));
 	var key_      = params_["url"];
+	return key_;
+}
+
+function exploaderRapPass() {
+	var key_      = exploaderKey();
 	var location_ = document.location.href;
 	if($("div#acces a").first().text() == "URLロック元に戻る") {
 		requestRapPass(key_, function(pass){ $("input[name='exp_password']").val(pass); });
@@ -44,8 +49,13 @@ function exploaderRapPass() {
 	}
 }
 
-function twodbookRapPass() {
+function twodbookKey() {
 	var key_ = $("div.info a[target='_blank']").first()[0].href;
+	return key_;
+}
+
+function twodbookRapPass() {
+	var key_ = twodbookKey();
 	var location_ = document.location.href;
 	if($("p.status").text() == "データはロックされていません") {
 		requestRapPass(key_, function(pass){ $("input#dlkey").val(pass); });
@@ -61,3 +71,31 @@ $(function() {
 		twodbookRapPass();
 	}
 });
+
+/************************************************
+ * Listener
+ ************************************************/
+
+function onMessageListener(message, sender, sendResponse) {
+	
+	switch (message.action) {
+
+	case "get_key_url":
+	
+		var key_url_ = "";
+		if(document.domain == "www.exploader.net") {
+			key_url_ = exploaderKey();
+		} else if (document.domain == "2dbook.com") {
+			key_url_ = twodbookKey();
+		}
+		sendResponse(key_url_);
+		return;
+		
+	default:
+		break;
+	}
+
+	sendResponse("uncatch action onMessageListener : " + message.action);
+};
+chrome.extension.onMessage.addListener(onMessageListener);
+

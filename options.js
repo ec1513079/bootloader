@@ -13,6 +13,20 @@ function initSetting() {
 };
 
 /************************************************
+ * Util
+ ************************************************/
+
+function getParamsFromUrl(str) {
+    var p = new Object();
+    var hashes = (str.indexOf('?')<0) ? new Array(): ((str.split('?'))[1].split('#'))[0].split('&');
+    for(var i = 0; i <hashes.length; i++) {
+        var hash = (hashes[i].indexOf('=')<0) ? new Array(hashes[i],'') : hashes[i].split('=');
+        p[hash[0]] = hash[1];
+    }
+    return p;
+};
+
+/************************************************
  * Object Helper
  *  object - オブジェクトを作る
  *  Object object(BaseObj [, mixinObj1 [, mixinObj2...]])
@@ -313,6 +327,13 @@ $(document).ready(function(){
 //		var url_ = $(this).text() ;
 //	    if(url_.length > 60) { $(this).text(url_.substring(0,60) + "..."); }
 //	});
+
+	// Set Key URL, Searching URL
+	var key_url_ = getParamsFromUrl(document.location.href)["key_url"];
+	if (key_url_ != null && key_url_ != "") {
+		$("#key_input_box").val(key_url_);
+		$("#url_input_box").val(key_url_);
+	}
 });
 
 /************************************************
