@@ -44,6 +44,8 @@ function exploaderRapPass() {
 	var location_ = document.location.href;
 	if($("div#acces a").first().text() == "URLロック元に戻る") {
 		requestRapPass(key_, function(pass){ $("input[name='exp_password']").val(pass); });
+	} else if($("input.dlkey") != null) {
+		requestRapPass(key_, function(pass){ $("input[name='exp_password']").val(pass); });
 	} else if(document.location.href.indexOf("www.exploader.net/download") != -1) {
 		requestUnlockPage(key_, location_+"\\?session=[\\w]+");
 	}
